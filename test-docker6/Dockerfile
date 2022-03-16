@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1.402-bionic-arm64v8 AS build-env
 WORKDIR /app
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
-RUN dotnet restore -r linux-arm64
+RUN dotnet restore
 # Copy everything else and build
 COPY ./ /app/
 RUN dotnet publish -c Release -o out -r linux-arm64
