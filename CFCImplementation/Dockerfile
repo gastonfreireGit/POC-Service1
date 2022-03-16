@@ -13,7 +13,7 @@ RUN dotnet publish -c Release -o out -r linux-arm64
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/runtime:3.1.8-bionic-arm64v8
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=build-env /app/ .
 ENTRYPOINT  ["dotnet", "CFCImplementation.dll"]
 EXPOSE 80
 # dotnet build -r linux-arm64
