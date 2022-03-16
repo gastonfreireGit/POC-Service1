@@ -1,21 +1,16 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-# syntax=docker/dockerfile:1
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.402-bionic-arm64v8 AS build-env
 WORKDIR /app
-
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
 RUN dotnet restore
-
 # Copy everything else and build
 COPY ./ /app/
-RUN dotnet publish -c Release -o out
-
+RUN dotnet publish -c Release -o out -r linux-arm64
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1.8-bionic-arm64v8
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "test-docker6.dll"]
+ENTRYPOINT  ["dotnet", "test-docker-net.dll"]
 EXPOSE 80
-EXPOSE 443
+# dotnet build -r linux-arm64
+# dotnet publish -c Release -r linux-arm64
