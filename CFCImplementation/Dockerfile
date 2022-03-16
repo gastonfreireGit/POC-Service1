@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1.402-bionic-arm64v8 AS build-env
-WORKDIR /app
+#WORKDIR /app
+WORKDIR ./
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
 COPY *.sln ./
