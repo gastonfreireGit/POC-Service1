@@ -3,6 +3,7 @@ WORKDIR /app
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
 COPY *.sln ./
+RUN ls -la ./
 RUN dotnet restore -r linux-arm64
 # Copy everything else and build
 COPY ./ /app/
